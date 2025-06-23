@@ -1,0 +1,21 @@
+/* -------------------------------------------------
+   Projet    : razouk-nawfal-app
+   Fichier   : App.module.css
+   Auteur    : Nawfal Razouk
+   Usage     : Styles locaux pour layout principal
+--------------------------------------------------- */
+
+.mainContent {
+  min-height: 75vh;
+  padding: 32px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: transparent;
+}
+
+@media (max-width: 600px) {
+  .mainContent {
+    padding: 18px 0;
+  }
+}

@@ -1,0 +1,258 @@
+/* Enhanced animations for Button component */
+.animatedBtn {
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-origin: center;
+  position: relative;
+  overflow: hidden;
+  will-change: transform, box-shadow, filter;
+}
+
+.animatedBtn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transition: left 0.5s ease;
+  pointer-events: none;
+}
+
+.animatedBtn:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 
+    0 10px 25px rgba(0, 0, 0, 0.15),
+    0 4px 10px rgba(0, 0, 0, 0.1);
+  filter: brightness(1.05) saturate(1.1);
+  z-index: 1;
+}
+
+.animatedBtn:hover::before {
+  left: 100%;
+}
+
+.animatedBtn:active {
+  transform: translateY(0) scale(0.98);
+  box-shadow: 
+    0 4px 12px rgba(0, 0, 0, 0.15),
+    0 2px 4px rgba(0, 0, 0, 0.1);
+  filter: brightness(0.95) saturate(1.05);
+  transition: all 0.1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.animatedBtn:focus-visible {
+  outline: 2px solid var(--mantine-color-blue-5, #339af0);
+  outline-offset: 2px;
+  transform: translateY(-1px) scale(1.01);
+}
+
+.animatedBtn:disabled {
+  transform: none !important;
+  filter: none !important;
+  box-shadow: none !important;
+}
+
+.animatedBtn:disabled::before {
+  display: none;
+}
+
+/* Enhanced animations for IconButton component */
+.animatedIconBtn {
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-origin: center;
+  position: relative;
+  overflow: hidden;
+  will-change: transform, box-shadow, filter;
+}
+
+.animatedIconBtn::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: all 0.3s ease;
+  pointer-events: none;
+}
+
+.animatedIconBtn:hover {
+  transform: translateY(-2px) scale(1.1) rotate(5deg);
+  box-shadow: 
+    0 8px 20px rgba(0, 0, 0, 0.15),
+    0 3px 8px rgba(0, 0, 0, 0.1);
+  filter: brightness(1.1) saturate(1.15);
+  z-index: 1;
+}
+
+.animatedIconBtn:hover::before {
+  width: 100%;
+  height: 100%;
+}
+
+.animatedIconBtn:active {
+  transform: translateY(0) scale(0.95) rotate(0deg);
+  box-shadow: 
+    0 3px 10px rgba(0, 0, 0, 0.2),
+    0 1px 3px rgba(0, 0, 0, 0.15);
+  filter: brightness(0.9) saturate(1.1);
+  transition: all 0.1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.animatedIconBtn:focus-visible {
+  outline: 2px solid var(--mantine-color-blue-5, #339af0);
+  outline-offset: 2px;
+  transform: translateY(-1px) scale(1.05);
+}
+
+.animatedIconBtn:disabled {
+  transform: none !important;
+  filter: none !important;
+  box-shadow: none !important;
+}
+
+.animatedIconBtn:disabled::before {
+  display: none;
+}
+
+/* Pulse animation for loading states */
+.animatedBtn[data-loading="true"],
+.animatedIconBtn[data-loading="true"] {
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+.animatedBtn[data-loading="true"]:hover,
+.animatedIconBtn[data-loading="true"]:hover {
+  transform: scale(1.02);
+  animation: pulse 1s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.02);
+    opacity: 0.9;
+  }
+}
+
+/* Ripple effect for clicks */
+.animatedBtn:active::after,
+.animatedIconBtn:active::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+  transform: translate(-50%, -50%);
+  animation: ripple 0.6s ease-out;
+  pointer-events: none;
+}
+
+@keyframes ripple {
+  to {
+    width: 100px;
+    height: 100px;
+    opacity: 0;
+  }
+}
+
+/* Special animations for different button variants */
+.animatedBtn[data-variant="filled"]:hover {
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 
+    0 15px 35px rgba(0, 0, 0, 0.2),
+    0 5px 15px rgba(0, 0, 0, 0.15);
+}
+
+.animatedBtn[data-variant="light"]:hover {
+  transform: translateY(-1px) scale(1.01);
+  box-shadow: 
+    0 5px 15px rgba(0, 0, 0, 0.1),
+    0 2px 5px rgba(0, 0, 0, 0.08);
+}
+
+.animatedBtn[data-variant="outline"]:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 
+    0 8px 20px rgba(0, 0, 0, 0.12),
+    0 3px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* Reduced motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .animatedBtn,
+  .animatedIconBtn {
+    transition: none;
+    animation: none;
+    will-change: auto;
+  }
+  
+  .animatedBtn::before,
+  .animatedIconBtn::before,
+  .animatedBtn::after,
+  .animatedIconBtn::after {
+    display: none;
+  }
+  
+  .animatedBtn:hover,
+  .animatedIconBtn:hover {
+    transform: none;
+    filter: brightness(1.05);
+    box-shadow: none;
+  }
+  
+  .animatedBtn:active,
+  .animatedIconBtn:active {
+    transform: none;
+    filter: brightness(0.95);
+    box-shadow: none;
+  }
+  
+  .animatedBtn:focus-visible,
+  .animatedIconBtn:focus-visible {
+    transform: none;
+  }
+}
+
+/* Dark mode optimizations */
+@media (prefers-color-scheme: dark) {
+  .animatedBtn::before {
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.1),
+      transparent
+    );
+  }
+  
+  .animatedIconBtn::before {
+    background: rgba(255, 255, 255, 0.2);
+  }
+  
+  .animatedBtn:hover {
+    box-shadow: 
+      0 10px 25px rgba(0, 0, 0, 0.3),
+      0 4px 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  .animatedIconBtn:hover {
+    box-shadow: 
+      0 8px 20px rgba(0, 0, 0, 0.3),
+      0 3px 8px rgba(0, 0, 0, 0.2);
+  }
+}

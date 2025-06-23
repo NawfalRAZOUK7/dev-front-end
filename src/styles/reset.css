@@ -1,0 +1,40 @@
+/* -------------------------------------------------
+   Projet    : razouk-nawfal-app
+   Fichier   : reset.css
+   Auteur    : Nawfal Razouk
+   Usage     : Reset CSS global pour base saine
+--------------------------------------------------- */
+
+/* Reset moderne et léger */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+}
+
+/* Les éléments média s’adaptent au conteneur */
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* Uniformise l’héritage de police */
+input, button, textarea, select {
+  font: inherit;
+  background: none;
+  border: none;
+  outline: none;
+}
+
+/* Tableaux sans espace inutile */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}

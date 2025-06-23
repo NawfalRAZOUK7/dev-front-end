@@ -1,0 +1,224 @@
+/* Base animated card styles */
+.animatedCard {
+  transition: all var(--animation-duration, 300ms) cubic-bezier(0.4, 0, 0.2, 1);
+  transform-origin: center;
+  position: relative;
+  overflow: hidden;
+  will-change: transform, box-shadow, filter;
+}
+
+/* Lift effect - moves card up and adds shadow */
+.effectLift {
+  cursor: pointer;
+}
+
+.effectLift:hover {
+  transform: translateY(-8px);
+  box-shadow: 
+    0 20px 40px rgba(0, 0, 0, 0.15),
+    0 8px 20px rgba(0, 0, 0, 0.1);
+  filter: brightness(1.02);
+}
+
+.effectLift:active {
+  transform: translateY(-4px);
+  box-shadow: 
+    0 10px 20px rgba(0, 0, 0, 0.15),
+    0 4px 10px rgba(0, 0, 0, 0.1);
+  transition-duration: 100ms;
+}
+
+/* Scale effect - scales the card slightly */
+.effectScale {
+  cursor: pointer;
+}
+
+.effectScale:hover {
+  transform: scale(1.05);
+  box-shadow: 
+    0 15px 30px rgba(0, 0, 0, 0.12),
+    0 6px 15px rgba(0, 0, 0, 0.08);
+  filter: brightness(1.03);
+}
+
+.effectScale:active {
+  transform: scale(1.02);
+  box-shadow: 
+    0 8px 15px rgba(0, 0, 0, 0.12),
+    0 3px 8px rgba(0, 0, 0, 0.08);
+  transition-duration: 100ms;
+}
+
+/* Glow effect - adds a subtle glow around the card */
+.effectGlow {
+  cursor: pointer;
+}
+
+.effectGlow:hover {
+  transform: translateY(-2px);
+  box-shadow: 
+    0 0 25px rgba(59, 130, 246, 0.3),
+    0 8px 20px rgba(0, 0, 0, 0.1);
+  filter: brightness(1.05);
+}
+
+.effectGlow:active {
+  transform: translateY(-1px);
+  box-shadow: 
+    0 0 15px rgba(59, 130, 246, 0.2),
+    0 4px 10px rgba(0, 0, 0, 0.1);
+  transition-duration: 100ms;
+}
+
+/* Shadow effect - enhances shadow without moving the card */
+.effectShadow {
+  cursor: pointer;
+}
+
+.effectShadow:hover {
+  box-shadow: 
+    0 25px 50px rgba(0, 0, 0, 0.2),
+    0 10px 25px rgba(0, 0, 0, 0.15);
+  filter: brightness(1.03) saturate(1.1);
+}
+
+.effectShadow:active {
+  box-shadow: 
+    0 15px 30px rgba(0, 0, 0, 0.2),
+    0 6px 15px rgba(0, 0, 0, 0.15);
+  filter: brightness(1.01) saturate(1.05);
+  transition-duration: 100ms;
+}
+
+/* Shimmer effect for enhanced interactivity */
+.animatedCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.1),
+    transparent
+  );
+  transition: left 0.6s ease;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.animatedCard:hover::before {
+  left: 100%;
+}
+
+/* Focus states for accessibility */
+.animatedCard:focus-visible {
+  outline: 2px solid var(--mantine-color-blue-5, #339af0);
+  outline-offset: 2px;
+}
+
+/* Disabled state */
+.animatedCard:disabled,
+.animatedCard[data-disabled="true"] {
+  transform: none !important;
+  filter: none !important;
+  box-shadow: none !important;
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.animatedCard:disabled::before,
+.animatedCard[data-disabled="true"]::before {
+  display: none;
+}
+
+/* Loading state animation */
+.animatedCard[data-loading="true"] {
+  animation: cardPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes cardPulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.01);
+    opacity: 0.95;
+  }
+}
+
+/* Dark mode optimizations */
+@media (prefers-color-scheme: dark) {
+  .animatedCard::before {
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.05),
+      transparent
+    );
+  }
+  
+  .effectLift:hover,
+  .effectScale:hover {
+    box-shadow: 
+      0 20px 40px rgba(0, 0, 0, 0.4),
+      0 8px 20px rgba(0, 0, 0, 0.3);
+  }
+  
+  .effectGlow:hover {
+    box-shadow: 
+      0 0 25px rgba(96, 165, 250, 0.4),
+      0 8px 20px rgba(0, 0, 0, 0.3);
+  }
+  
+  .effectShadow:hover {
+    box-shadow: 
+      0 25px 50px rgba(0, 0, 0, 0.6),
+      0 10px 25px rgba(0, 0, 0, 0.4);
+  }
+}
+
+/* Reduced motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .animatedCard,
+  .effectLift,
+  .effectScale,
+  .effectGlow,
+  .effectShadow {
+    transition: none;
+    animation: none;
+    will-change: auto;
+  }
+  
+  .animatedCard::before {
+    display: none;
+  }
+  
+  .animatedCard:hover {
+    transform: none !important;
+    filter: brightness(1.05) !important;
+  }
+  
+  .animatedCard:active {
+    transform: none !important;
+    filter: brightness(0.95) !important;
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .effectLift:hover {
+    transform: translateY(-4px);
+  }
+  
+  .effectScale:hover {
+    transform: scale(1.02);
+  }
+  
+  .animatedCard {
+    --animation-duration: 200ms;
+  }
+}
